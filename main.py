@@ -63,8 +63,8 @@ class MsgDistributor(Star):
         """设置当前的Provider"""
         self.context.provider_manager.curr_provider_inst = provider
         sp.put("curr_provider", provider.meta().id)
-        if not self.context.provider_manager.provider_enabled:
-            self.context.provider_manager.provider_enabled = True
+        if not self.context.get_using_provider():
+            logger.warning("No provider is currently enabled.")
 
     @filter.event_message_type(EventMessageType.GROUP_MESSAGE)
     async def on_group_message(self, event: AstrMessageEvent):
